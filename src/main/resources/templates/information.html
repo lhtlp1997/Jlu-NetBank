@@ -1,0 +1,506 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>一卡通信息</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Shoppy Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	<script type="application/x-javascript">
+	
+	
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+
+</script>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+	<!-- Custom Theme files -->
+	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css/datepicker.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="css/datatable.css" rel="stylesheet" type="text/css" media="all" />
+	<!--js-->
+	<script src="js/jquery-2.1.1.min.js"></script>
+	<!--icons-css-->
+	<link href="css/font-awesome.css" rel="stylesheet">
+	<!--Google Fonts-->
+	<link href='https://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,500,600' rel='stylesheet' type='text/css'>
+	<!--//skycons-icons-->
+	<script src="js/Chart.min.js"></script>
+</head>
+
+<body>
+	<div class="page-container">
+		<div class="left-content">
+			<div class="mother-grid-inner">
+				<!--header start here-->
+				<div class="header-main">
+					<div class="header-left">
+						<div class="logo-name">
+							<a href="index.html">
+								<h1>欢迎您</h1>
+								<!--<img id="logo" src="" alt="Logo"/>-->
+							</a>
+						</div>
+						<!--search-box-->
+						<div class="search-box">
+							<form>
+								<input type="text" placeholder="查询" required="">
+								<input type="submit" value="">
+							</form>
+						</div>
+						<!--//end-search-box-->
+						<div class="clearfix"></div>
+					</div>
+					<div class="header-right">
+
+						<div class="profile_details">
+							<ul>
+								<li class="dropdown profile_details_drop">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+										<div class="profile_img">
+											<span class="prfil-img">
+												<img src="images/p1.png" alt=""> </span>
+
+											<div class="user-name" th:if="${currentUser}">
+												<p th:text="${currentUser.name}"></p>
+												<span>网上银行</span>
+											</div>
+
+											<div class="user-name" th:if="${currentManager}">
+												<p th:text="${currentManager.workNumber}"></p>
+												<span>管理员</span>
+											</div>
+											<i class="fa fa-angle-down lnr"></i>
+											<i class="fa fa-angle-up lnr"></i>
+											<div class="clearfix"></div>
+										</div>
+									</a>
+									<ul class="dropdown-menu drp-mnu">
+										<li>
+											<a href="#">
+												<i class="fa fa-cog"></i> 设置</a>
+										</li>
+										<li>
+											<a href="#">
+												<i class="fa fa-user"></i> 个人</a>
+										</li>
+										<li>
+											<a href="index.html">
+												<i class="fa fa-sign-out"></i> 退出</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<!--heder end here-->
+			<!-- script-for sticky-nav -->
+			<script>
+				$(document).ready(function () {
+					var navoffeset = $(".header-main").offset().top;
+					$(window).scroll(function () {
+						var scrollpos = $(window).scrollTop();
+						if (scrollpos >= navoffeset) {
+							$(".header-main").addClass("fixed");
+						} else {
+							$(".header-main").removeClass("fixed");
+						}
+					});
+
+				});
+			</script>
+			<!-- /script-for sticky-nav -->
+			<!--inner block start here-->
+			<div class="inner-block">
+				<div class="alert alert-success alert-dismissable" th:unless="${#strings.isEmpty(message)}">
+					<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+					<strong th:text="${message}"></strong>
+				</div>
+				<div class="inbox">
+
+					<div class="col-lg-12">
+						<h2>子账户信息查询</h2>
+					</div>
+
+					<div class="portlet-grid-page">
+
+
+						<div class="portlet-grid panel-primary" th:each="sub: ${subCredits}">
+							<div class="panel-heading">
+								<h3 class="panel-title" th:text=" '子账户账号： ' + ${sub.creditNum} "></h3>
+							</div>
+							<div class="panel-body" th:if="${sub.depositType} == 1">
+								<div th:switch="${sub.currency}">
+									<p th:case="'1'">人民币</p>
+									<p th:case="'2'">美元</p>
+									<p th:case="'3'">港元</p>
+									<p th:case="'4'">日元</p>
+									<p th:case="'5'">欧元</p>
+								</div>
+								<p th:text=" '余额：' + ${sub.balance}"></p>
+								<p th:text=" '起息日： ' + ${#dates.format(sub.inTime,'yyyy-MM-dd')}"></p>
+								<p th:text=" '存期： ' + '没有固定时间'"></p>
+								<p th:text="'利息： ' + ${depositrate} "></p>
+							</div>
+
+							<div class="panel-body" th:if="${sub.depositType} == 2">
+								<div th:switch="${sub.currency}">
+									<p th:case="'1'">人民币</p>
+									<p th:case="'2'">美元</p>
+									<p th:case="'3'">港元</p>
+									<p th:case="'4'">日元</p>
+									<p th:case="'5'">欧元</p>
+								</div>
+								<p th:text=" '余额：' + ${sub.balance}"></p>
+								<p th:text=" '起息日： ' + ${#dates.format(sub.inTime,'yyyy-MM-dd')}"></p>
+								<p th:text=" '存期： ' + ${sub.isOneYear} + '年'"></p>
+								<p th:text="'利息： ' + ${fixedrate} "></p>
+							</div>
+
+							<div class="panel-body" th:if="${sub.depositType} == 3">
+								<div th:switch="${sub.currency}">
+									<p th:case="'1'">人民币</p>
+									<p th:case="'2'">美元</p>
+									<p th:case="'3'">港元</p>
+									<p th:case="'4'">日元</p>
+									<p th:case="'5'">欧元</p>
+								</div>
+								<p th:text=" '余额：' + ${sub.balance}"></p>
+								<p th:text=" '起息日： ' + ${#dates.format(sub.inTime,'yyyy-MM-dd')}"></p>
+								<p th:text=" '存期： ' + '没有固定时间'"></p>
+								<p th:text="'利息： ' + ${fixedrate} "></p>
+							</div>
+
+						</div>
+
+					</div>
+
+
+					<div class="col-lg-12" style="margin-top: 80px">
+						<h2>交易信息查询</h2>
+					</div>
+
+
+
+
+					<div class="row">
+						<div class="col-lg-12">
+							<form class="form-group" th:action="@{/search}" method="POST">
+								<label>时间范围</label>
+								<input type="text" name="range" class="form-control" required="required" id="reservation">
+								<button type="submit" class="btn btn-block btn-success" style="margin-top: 20px;">查询</button>
+
+							</form>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-12">
+
+
+							<table class="table table-striped table-bordered table-hover" id="example">
+								<thead>
+									<tr>
+										<th>记录号</th>
+										<th>种类</th>
+										<th>金额</th>
+										<th>记录时间</th>
+										<th>一卡通账号</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="odd gradeX" th:each="rec: ${records}">
+										<td th:text="${rec.id}"></td>
+										<td th:switch="${rec.type}">
+											<p th:case=" '1' ">存款</p>
+											<p th:case=" '2' ">取款</p>
+											<p th:case=" '3' ">转账</p>
+											<p th:case=" '4' ">利息计算</p>
+											<p th:case=" '5' ">贷款发放</p>
+											<p th:case=" '6' ">贷款偿还</p>
+										</td>
+										<td th:text="${rec.money}"></td>
+										<td class="center" th:text="${#dates.format(rec.occurDate,'yyyy-MM-dd')}"></td>
+										<td class="center" th:text="${ecardnumber}"></td>
+									</tr>
+
+
+
+								</tbody>
+							</table>
+
+						</div>
+
+					</div>
+
+					<div class="row">
+
+						<div class="col-lg-12" style="margin-top: 80px">
+
+							<h2>财务分析</h2>
+						</div>
+						<div class="col-md-6 chart-blo-1">
+							<div class="line-chart">
+								<h3>财务曲线图</h3>
+								<canvas id="line" height="300" width="400" style="width: 400px; height: 300px;"> </canvas>
+								<script>
+
+									$(function () {
+										var newData = new Array();
+										$.ajax({
+											type: "GET",
+											url: "/data",
+											dataType: "json",
+											success: function (data) {
+												var row = data['line'];
+												var labels = data['row'];
+												var lineChartData = {
+													labels: labels,
+													datasets: [
+														{
+															fillColor: "rgba(51, 122, 183, 0.71)",
+															strokeColor: "#337AB7",
+															pointColor: "#337AB7",
+															pointStrokeColor: "#fff",
+															data: row,
+														}
+													]
+												};
+												new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
+											}
+										});
+									});
+								</script>
+							</div>
+						</div>
+
+
+						<div class="col-md-6 chart-blo-1">
+							<div class="chart-other">
+								<h3>财务饼状图</h3>
+								<canvas id="pie" height="315" width="470" style="width: 470px; height: 315px;"></canvas>
+								<script>
+
+									$(function () {
+										$.ajax({
+											type: "GET",
+											url: "/data",
+											dataType: "json",
+											success: function (data) {
+
+												var deposit = data['deposit'];
+												var draw = data['draw'];
+												var transfer = data['transfer'];
+												var rate = data['rate'];
+												var back = data['back'];
+												var give = data['give'];
+
+												var pieData = [
+													{
+														value: deposit,
+														color: "#337AB7",
+														label: "储蓄金额"
+													},
+													{
+														value: draw,
+														color: "#FC8213",
+														label: "取款金额"
+													},
+													{
+														value: transfer,
+														color: "#0066CC	",
+														label: "转账金额"
+													},
+													{
+														value: rate,
+														color: "#993333",
+														label: "利息计算"
+													},
+													{
+														value: back,
+														color: "#CCCC00",
+														label: "贷款发放"
+													},
+													{
+														value: give,
+														color: "#CCCC99",
+														label: "贷款偿还"
+													}
+
+												];
+												new Chart(document.getElementById("pie").getContext("2d")).Pie(pieData);
+											}
+										});
+									});
+
+
+								</script>
+							</div>
+						</div>
+
+					</div>
+
+
+					<div class="clearfix"></div>
+
+
+
+
+				</div>
+			</div>
+
+			<!--inner block end here-->
+
+		</div>
+
+		<!--slider menu-->
+		<div class="sidebar-menu">
+			<div class="logo">
+				<a href="#" class="sidebar-icon">
+					<span class="fa fa-bars"></span>
+				</a>
+				<a href="#">
+					<span id="logo"></span>
+					<!--<img id="logo" src="" alt="Logo"/>-->
+				</a>
+			</div>
+			<div class="menu">
+				<ul id="menu">
+					<li id="menu-home">
+						<a href="index.html">
+							<i class="fa fa-tachometer"></i>
+							<span>首页</span>
+						</a>
+					</li>
+
+
+
+
+
+
+					<li>
+						<a href="#">
+							<i class="fa fa-shopping-cart"></i>
+							<span>网上银行</span>
+							<span class="fa fa-angle-right" style="float: right"></span>
+						</a>
+						<ul id="menu-academico-sub">
+							<li id="menu-academico-avaliacoes">
+								<a href="information.html">一卡通信息</a>
+							</li>
+							<li id="menu-academico-boletim">
+								<a href="transfer.html">转账</a>
+							</li>
+							<li id="menu-academico-boletim">
+								<a href="modify.html">用户修改</a>
+							</li>
+							<li id="menu-academico-boletim">
+								<a href="lost.html">挂失</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<!--slide bar menu end here-->
+	<script>
+		var toggle = true;
+
+		$(".sidebar-icon").click(function () {
+			if (toggle) {
+				$(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+				$("#menu span").css({ "position": "absolute" });
+			}
+			else {
+				$(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+				setTimeout(function () {
+					$("#menu span").css({ "position": "relative" });
+				}, 400);
+			}
+			toggle = !toggle;
+		});
+	</script>
+	<!--scrolling js-->
+	<script src="js/jquery.nicescroll.js"></script>
+	<script src="js/scripts.js"></script>
+	<!--//scrolling js-->
+	<script src="js/bootstrap.js"> </script>
+	<script src="js/jquery.dataTables.js"> </script>
+	<script src="js/dataTables.bootstrap.js"> </script>
+	<script src="js/moment.js"></script>
+	<script src="js/datepicker.js"> </script>
+	<!-- mother grid end here-->
+
+
+	<script>
+		var toggle = true;
+
+		$(".sidebar-icon").click(function () {
+			if (toggle) {
+				$(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+				$("#menu span").css({ "position": "absolute" });
+			}
+			else {
+				$(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+				setTimeout(function () {
+					$("#menu span").css({ "position": "relative" });
+				}, 400);
+			}
+			toggle = !toggle;
+		});
+	</script>
+
+	<script>
+		$(function () {
+			$('#example').DataTable({
+				"paging": true,
+				"lengthChange": true,
+				"searching": true,
+				"ordering": true,
+				"info": true,
+				"autoWidth": false
+			});
+		});
+	</script>
+	<script>
+		$(function () {
+			$('#reservation').daterangepicker({
+				timePicker: false,
+				timePickerIncrement: 1,
+				timePickerSeconds: true,
+				timePicker12Hour: false, //24小时 老版本
+				timePicker24Hour: true, //24小时 新版本
+				locale: {
+					applyLabel: '确定',
+					cancelLabel: '取消',
+					fromLabel: '起始时间',
+					toLabel: '结束时间',
+					customRangeLabel: '自定义',
+					daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
+					monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
+						'七月', '八月', '九月', '十月', '十一月', '十二月'],
+					firstDay: 1
+				},
+				format: 'YYYY-MM-DD'
+			})
+		});
+
+
+
+
+
+
+
+	</script>
+</body>
+
+</html>

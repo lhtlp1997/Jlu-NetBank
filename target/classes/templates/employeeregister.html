@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>管理员/用户注册</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Shoppy Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<!-- Custom Theme files -->
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<!--js-->
+<script src="js/jquery-2.1.1.min.js"></script> 
+<!--icons-css-->
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<!--Google Fonts-->
+<link href='https://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,500,600' rel='stylesheet' type='text/css'>
+<!--static chart-->
+</head>
+<body>	
+<div class="login-page">
+    <div class="login-main">
+    		<div class="alert alert-danger alert-dismissable"
+    		th:unless="${#strings.isEmpty(message)}">
+					<button aria-hidden="true" data-dismiss="alert" class="close" type="button"> × </button>
+					<strong th:text="${message}"></strong>
+			</div>  	
+    	 <div class="login-head">
+				<h1>管理员/网上银行注册</h1>
+			</div>
+			<div class="login-block">
+                
+                
+  
+            <div class="horizontal-tab">
+              <ul class="nav nav-tabs">
+                <li class="" style="margin-left: 100px"><a href="#tab1" data-toggle="tab" aria-expanded="false">管理员注册</a></li>
+                <li class="" style="margin-left: 100px"><a href="#tab2" data-toggle="tab" aria-expanded="false">网上银行注册</a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane" id="tab1">
+                  <div class="row">
+                    <div class="col-md-12">
+                      
+						<form th:action="@{/employeeregister}" th:object="${employee}" method="post">
+							<input type="text" th:field="*{workNumber}" name="email" placeholder="员工工号（5位，首位必须为1-4之间）" required="">
+							<input type="password" th:field="*{password}" name="password" class="lock" placeholder="密码(8-16位，必须包含字母、数字、下划线)" required="">
+							<input type="password" name="newpassword" class="lock" placeholder="确认密码" required="">
+							<div class="forgot-top-grids">
+								<div class="forgot-grid">
+									<ul>
+										<li>
+											<input type="checkbox" id="brand1" value="">
+											<label for="brand1"><span></span>我同意遵循该银行系统的用户协议</label>
+										</li>
+									</ul>
+								</div>
+								
+								<div class="clearfix"> </div>
+							</div>
+							<input type="submit" name="Sign In" value="注册">														
+						</form>
+                            
+                        
+
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab2">
+                  <div class="row">
+                    <div class="col-md-12">
+                    
+                    
+                            <form th:action="@{/userregister}" method="POST">
+                            		<input type="text" name="idnum" placeholder="身份证" required="">
+									<input type="text" name="name" placeholder="用户名（16位以内的字母、数字）" required="">
+									<input type="password" class="lock" name="password" placeholder="密码（不超过16位）" required="">
+									<input type="password" class="lock" name="confirm" placeholder="确认密码" required="">
+                                    <div class="forgot-top-grids">
+                                        <div class="forgot-grid">
+                                        </div>
+                                        <div class="clearfix"> </div>
+                                    </div>
+                                    <input type="submit" name="Sign In" value="注册">
+                                </form>
+
+                    </div>
+                  </div>
+                </div>
+                
+                
+              </div>
+            </div>
+
+
+
+
+
+
+				
+				<h5><a href="index.html">返回主页</a></h5>
+			</div>
+      </div>
+</div>
+<!--inner block end here-->
+
+
+<!--scrolling js-->
+		<script src="js/jquery.nicescroll.js"></script>
+		<script src="js/scripts.js"></script>
+		<!--//scrolling js-->
+<script src="js/bootstrap.js"> </script>
+<!-- mother grid end here-->
+</body>
+</html>

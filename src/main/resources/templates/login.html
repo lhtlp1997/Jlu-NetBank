@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>登录</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Shoppy Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<!-- Custom Theme files -->
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<!--js-->
+<script src="js/jquery-2.1.1.min.js"></script> 
+<!--icons-css-->
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<!--Google Fonts-->
+<link href='https://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,500,600' rel='stylesheet' type='text/css'>
+<!--static chart-->
+</head>
+<body>	
+<div class="login-page">
+    <div class="login-main">
+    		<div class="alert alert-danger alert-dismissable"
+    		th:unless="${#strings.isEmpty(message)}">
+					<button aria-hidden="true" data-dismiss="alert" class="close" type="button"> × </button>
+					<strong th:text="${message}"></strong>
+			</div>  	
+    	 <div class="login-head">
+				<h1>登录</h1>
+			</div>
+			<div class="login-block">
+                
+                
+            <div class="horizontal-tab">
+              <ul class="nav nav-tabs">
+                <li class="" style="margin-left: 100px"><a href="#tab1" data-toggle="tab" aria-expanded="false">管理员登录</a></li>
+                <li class="" style="margin-left: 100px"><a href="#tab2" data-toggle="tab" aria-expanded="false">网上银行</a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane" id="tab1">
+                  <div class="row">
+                    <div class="col-md-12">
+                      
+						<form th:action="@{/login}" th:object="${employee}" method="post">
+							<input type="text" th:field="*{workNumber}" name="email" placeholder="管理员工号" required="">
+							<input type="password" th:field="*{password}" name="password" class="lock" placeholder="密码">
+							<div class="forgot-top-grids">
+								<div class="forgot-grid">
+									<ul>
+										<li>
+											<input type="checkbox" id="brand1" value="">
+											<label for="brand1"><span></span>记住我</label>
+										</li>
+									</ul>
+								</div>
+								<div class="forgot">
+									<a href="#">忘记密码？</a>
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+							<input type="submit" name="Sign In" value="登录">	
+							<h3>不是管理员？<a href="employeeregister.html">立即注册</a></h3>				
+							<h2>或者用以下社交账号登录</h2>
+							<div class="login-icons">
+								<ul>
+									<li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+									<li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+									<li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>						
+								</ul>
+							</div>
+						</form>
+                            
+                        
+
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane" id="tab2">
+                  <div class="row">
+                    <div class="col-md-12">
+                    
+                    
+						<form th:action="@{/banklogin}" method="POST">
+							<input type="text" name="name" placeholder="用户名" required="">
+							<input type="password" name="password" class="lock" placeholder="密码">
+							<div class="forgot-top-grids">
+								<div class="forgot-grid">
+									<ul>
+										<li>
+											<input type="checkbox" id="brand1" value="">
+											<label for="brand1"><span></span>记住我</label>
+										</li>
+									</ul>
+								</div>
+								<div class="forgot">
+									<a href="#">忘记密码？</a>
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+							<input type="submit" name="Sign In" value="登录">	
+							<h3>没有网上银行？<a href="employeeregister.html">立即注册</a></h3>				
+							<h2>或者用以下社交账号登录</h2>
+							<div class="login-icons">
+								<ul>
+									<li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
+									<li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+									<li><a href="#" class="google"><i class="fa fa-google-plus"></i></a></li>						
+								</ul>
+							</div>
+						</form>
+
+                    </div>
+                  </div>
+                </div>
+                
+                
+              </div>
+            </div>
+
+
+
+
+
+
+				
+				<h5><a href="index.html">返回主页</a></h5>
+			</div>
+      </div>
+</div>
+<!--inner block end here-->
+
+
+<!--scrolling js-->
+		<script src="js/jquery.nicescroll.js"></script>
+		<script src="js/scripts.js"></script>
+		<!--//scrolling js-->
+<script src="js/bootstrap.js"> </script>
+<!-- mother grid end here-->
+</body>
+</html>

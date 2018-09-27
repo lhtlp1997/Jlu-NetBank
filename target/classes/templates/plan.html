@@ -1,0 +1,405 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>计划</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Shoppy Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<!-- Custom Theme files -->
+<link href="css/style.css" rel="stylechuangjiansheet" type="text/css" media="all"/>
+<!--js-->
+<script src="js/jquery-2.1.1.min.js"></script> 
+<!--icons-css-->
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<!--Google Fonts-->
+<link href='https://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,500,600' rel='stylesheet' type='text/css'>
+<!--//skycons-icons-->
+<!--pop up strat here-->
+<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
+ <script>
+						$(document).ready(function() {
+						$('.popup-with-zoom-anim').magnificPopup({
+							type: 'inline',
+							fixedContentPos: false,
+							fixedBgPos: true,
+							overflowY: 'auto',
+							closeBtnInside: true,
+							preloader: false,
+							midClick: true,
+							removalDelay: 300,
+							mainClass: 'my-mfp-zoom-in'
+						});
+																						
+						});
+				</script>
+<!--pop up end here-->
+</head>
+<body>	
+<div class="page-container">	
+   <div class="left-content">
+	   <div class="mother-grid-inner">
+            <!--header start here-->
+				<div class="header-main">
+					<div class="header-left">
+							<div class="logo-name">
+									 <a href="index.html"> <h1>欢迎您</h1> 
+									<!--<img id="logo" src="" alt="Logo"/>--> 
+								  </a> 								
+							</div>
+							<!--search-box-->
+								<div class="search-box">
+									<form>
+										<input type="text" placeholder="查询" required="">	
+										<input type="submit" value="">					
+									</form>
+								</div><!--//end-search-box-->
+							<div class="clearfix"> </div>
+						 </div>
+						 <div class="header-right">
+							
+							<!--notification menu end -->
+							<div class="profile_details">		
+								<ul>
+									<li class="dropdown profile_details_drop">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+										<div class="profile_img">
+											<span class="prfil-img">
+												<img src="images/p1.png" alt=""> </span>
+												
+											<div class="user-name" th:if="${currentUser}">
+												<p th:text="${currentUser.name}"></p>
+												<span>网上银行</span>
+											</div>
+											
+											<div class="user-name" th:if="${currentManager}">
+												<p th:text="${currentManager.workNumber}"></p>
+												<span>管理员</span>
+											</div>
+											<i class="fa fa-angle-down lnr"></i>
+											<i class="fa fa-angle-up lnr"></i>
+											<div class="clearfix"></div>
+										</div>
+									</a>
+									<ul class="dropdown-menu drp-mnu">
+										<li>
+											<a href="#">
+												<i class="fa fa-cog"></i> 设置</a>
+										</li>
+										<li>
+											<a href="#">
+												<i class="fa fa-user"></i> 个人</a>
+										</li>
+										<li>
+											<a href="login.html">
+												<i class="fa fa-sign-out"></i> 退出</a>
+										</li>
+									</ul>
+								</li>
+								</ul>
+							</div>
+							<div class="clearfix"> </div>				
+						</div>
+				     <div class="clearfix"> </div>	
+				</div>
+<!--heder end here-->
+<!-- script-for sticky-nav -->
+		<script>
+		$(document).ready(function() {
+			 var navoffeset=$(".header-main").offset().top;
+			 $(window).scroll(function(){
+				var scrollpos=$(window).scrollTop(); 
+				if(scrollpos >=navoffeset){
+					$(".header-main").addClass("fixed");
+				}else{
+					$(".header-main").removeClass("fixed");
+				}
+			 });
+			 
+		});
+		</script>
+<!-- /script-for sticky-nav -->
+<!--inner block start here-->
+<div class="inner-block">
+		<div class="alert alert-danger alert-dismissable"
+		th:unless="${#strings.isEmpty(message)}">
+			   <button aria-hidden="true" data-dismiss="alert" class="close" type="button"> × </button>
+			   <strong th:text="${message}"></strong> 
+	   </div>
+    <div class="price-block-main">
+    	<div class="prices-head">
+    		<h2>管理员计划</h2>
+    	</div>
+    	<div class="price-tables">
+	    		<div class="col-md-4 price-grid" th:if="${plan.executeState} == 3" th:each="plan: ${plans}">
+	    		   <div class="price-block">
+		    			<div class="price-gd-top pric-clr1">
+		    				<h4>已执行计划</h4>
+		    				<h3 th:text="${#dates.format(plan.executeDate,'yyyy-MM-dd HH:mm:ss')}"><span class="usa-dollar"></span><span class="per-month"></span></h3>
+		    			</div>
+		    			<div class="price-gd-bottom">
+		    				<div class="price-list">
+			    				<ul>
+			    					<li th:text=" '活期利率：' + ${plan.currentDepositRate} + '%' "></li>
+									<li th:text=" '定期利率：' + ${plan.fixedDepositRate} + '%' "></li>
+									<li th:text=" '定活两变利率：' + ${plan.fixAndDepositRate} + '%' "></li>
+			    					<li th:text=" '贷款利率：' + ${plan.loanRate} + '%' "></li>
+			    				</ul>
+		    				</div>
+		    			</div>
+		    		    <div class="price-selet pric-clr1">		    			   
+		    			   	  <p></p>
+		    			</div>
+		    		</div>
+                </div>
+                
+                <div class="col-md-4 price-grid"  th:if="${plan.executeState} == 1" th:each="plan: ${plans}">
+	    		   <div class="price-block" >
+		    			<div class="price-gd-top pric-clr1">
+		    				<h4>正在执行的计划</h4>
+		    				<h3 th:text="${#dates.format(plan.executeDate,'yyyy-MM-dd HH:mm:ss')}"><span class="usa-dollar"></span><span class="per-month"></span></h3>
+		    			</div>
+		    			<div class="price-gd-bottom">
+		    				<div class="price-list">
+			    				<ul>
+			    					<li th:text=" '活期利率：' + ${plan.currentDepositRate} + '%' "></li>
+									<li th:text=" '定期利率：' + ${plan.fixedDepositRate} + '%' "></li>
+									<li th:text=" '定活两变利率：' + ${plan.fixAndDepositRate} + '%' "></li>
+			    					<li th:text=" '贷款利率：' + ${plan.loanRate} + '%' "></li>
+			    				</ul>
+		    				</div>
+		    			</div>
+		    		    <div class="price-selet pric-clr1">		    			   
+		    			   	  <p></p>
+		    			</div>
+		    		</div>
+                </div>
+
+	    		<div class="col-md-4 price-grid" th:if="${plan.executeState} == 2" th:each="plan: ${plans}">
+	    			<div class="price-block">
+		    			<div class="price-gd-top pric-clr2">
+		    				<h4>未执行计划</h4>
+		    				<h3 th:text="${#dates.format(plan.executeDate,'yyyy-MM-dd HH:mm:ss')}"><span class="usa-dollar"></span><span class="per-month"></span></h3>
+		    			</div>
+		    			<div class="price-gd-bottom">
+		    				<div class="price-list">
+			    				<ul>
+                                    <li th:text=" '活期利率：' + ${plan.currentDepositRate} + '%' "></li>
+									<li th:text=" '定期利率：' + ${plan.fixedDepositRate} + '%' "></li>
+									<li th:text=" '定活两变利率：' + ${plan.fixAndDepositRate} + '%' "></li>
+			    					<li th:text=" '贷款利率：' + ${plan.loanRate} + '%' "></li>			
+			    				</ul>
+		    				</div>
+		    			</div>
+		    		    <div class="price-selet pric-clr2">
+		    			   	 <p></p>
+		    			</div>
+		    		</div>
+				</div>
+				
+				<!-- 创建计划 -->
+				<div class="col-md-4 price-grid">
+						<div class="price-block">
+							<div class="price-gd-top pric-clr3">
+								<h4></h4>
+								<h4></h4>
+								<h3><span class="usa-dollar"></span>创建计划<span class="per-month"></span></h3>
+								<h5></h5>
+							</div>
+							<div class="price-gd-bottom">
+								<div class="price-list">
+									<ul>
+										<li>执行时间：</li>
+										<li>活期利率：</li>
+										<li>定期利率：</li>
+										<li>定活两期利率：</li>
+										<li>贷款利息：</li>
+									</ul>
+								</div>
+							</div>
+							<div class="price-selet pric-clr3">
+									<a class="popup-with-zoom-anim" href="#small-dialog">创建</a>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="col-md-4 price-grid">
+						<div class="price-block">
+							<div class="price-gd-top pric-clr3">
+								<h4></h4>
+								<h4></h4>
+								<h3><span class="usa-dollar"></span>修改计划<span class="per-month"></span></h3>
+								<h5></h5>
+							</div>
+							<div class="price-gd-bottom">
+								<div class="price-list">
+									<ul>
+										<li>执行时间</li>
+										<li>活期利率</li>
+										<li>定期利率</li>
+										<li>定活两期利率</li>
+										<li>贷款利息</li>
+									</ul>
+								</div>
+							</div>
+							<div class="price-selet pric-clr3">
+									<a class="popup-with-zoom-anim" href="#current">修改</a>
+							</div>
+						</div>
+					</div>
+					
+
+    	  <div class="clearfix"> </div>
+    	  </div>
+   </div>
+</div>
+<!--inner block end here-->
+<!--pop-up-grid-->				
+								<!-- 创建计划 -->
+				                 <div id="popup">
+								 <div id="small-dialog" class="mfp-hide">
+									<div class="pop_up">
+									 	<div class="payment-online-form-left">
+											<form th:action="@{/create}" method="POST">
+												<h4><span class="shoppong-pay-1"> </span>计划操作</h4>
+												<ul>
+													<li><input name="executeDate" type="text" class="text-box-dark" placeholder="形如：2018-06-08 14:28"></li>
+													<li><input name="currentDepositRate" type="text" class="text-box-dark" placeholder="活期利率"></li>
+												</ul>
+												<ul>
+													<li><input name="fixedDepositRate" type="text" class="text-box-dark" placeholder="定期利率"></li>
+													<li><input name="loanRate" type="text" class="text-box-dark" placeholder="贷款利息"></li>
+												</ul>
+												
+												<ul class="payment-sendbtns">
+                                                    <li><input type="submit" name="button" value="确认"></li>
+                                                    <li><input type="reset" value="重置"></li>
+												</ul>
+												<div class="clear"></div>
+											</form>
+										</div>
+						  			</div>
+								</div>
+								</div>
+								
+								
+								
+								<!--删除\恢复计划-->
+								<div id="popup">
+									<div id="current" class="mfp-hide">
+									   <div class="pop_up">
+											<div class="payment-online-form-left">
+											   <form th:action="@{/yi}" method="POST">
+												   <h4 style="margin-top: 40px"><span class="shoppong-pay-1"> </span>已执行计划</h4>
+												   <ul>
+													   <li style="margin-left: 180px"><input class="text-box-dark" name="executeDate" type="text" placeholder="计划执行时间"></li>
+												   </ul>
+												   <ul class="payment-sendbtns" style="margin-top: 40px;margin-right: 220px">
+													<li><input type="submit" name="button" value="删除"></li>
+													<li><input type="submit" name="button" value="恢复"></li>
+													</ul>
+												</form>
+
+												   <div class="clear"></div>
+												
+												   <form th:action="@{/wei}" method="POST">
+													<h4 style="margin-top: 200px"><span class="shoppong-pay-1"> </span>未执行计划</h4>
+													<ul>
+														<li style="margin-left: 180px"><input class="text-box-dark" name="executeDate" type="text" placeholder="计划执行时间"></li>
+													</ul>
+													<ul class="payment-sendbtns" style="margin-top: 40px;margin-right: 250px">
+													 <li><input type="submit" name="button" value="删除"></li>
+													 </ul>
+												 </form>
+											   
+											   <div class="clear"></div>
+										   </div>
+										 </div>
+								   </div>
+								   </div>
+								
+								
+
+
+
+
+
+
+								
+<!--pop-up-grid-->
+
+</div>
+</div>
+<!--slider menu-->
+<div class="sidebar-menu">
+	<div class="logo"> <a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> <a href="#"> <span id="logo" ></span> 
+		<!--<img id="logo" src="" alt="Logo"/>--> 
+	</a> </div>		  
+  <div class="menu">
+	<ul id="menu" >
+	  <li id="menu-home" ><a href="index.html"><i class="fa fa-tachometer"></i><span>首页</span></a></li>
+	  <li><a href="#"><i class="fa fa-cogs"></i><span>储蓄</span><span class="fa fa-angle-right" style="float: right"></span></a>
+		<ul>
+		  <li><a href="deposit.html">存储</a></li>
+          <li><a href="draw.html">取钱</a></li>	           
+		</ul>
+	  </li>
+	  <li id="menu-comunicacao" ><a href="#"><i class="fa fa-book nav_icon"></i><span>贷款</span><span class="fa fa-angle-right" style="float: right"></span></a>
+		<ul id="menu-comunicacao-sub" >
+		  <li id="menu-arquivos" ><a href="studentloan.html">助学贷款</a></li>
+		  <li id="menu-arquivos" ><a href="houseloan.html">住房贷款</a></li>
+		  <li id="menu-arquivos" ><a href="personloan.html">个人贷款</a></li>
+		  <li id="menu-arquivos" ><a href="back.html">还款</a></li>
+		</ul>
+	  </li>
+
+	  <li><a href="open.html"><i class="fa fa-file-text"></i><span>账户开通</span><span></span></a>
+	  </li>
+	  
+	  <li><a href="expand.html"><i class="fa fa-bar-chart"></i><span>申请展期</span></a></li>
+	   <li><a href="#"><i class="fa fa-cog"></i><span>管理员</span><span class="fa fa-angle-right" style="float: right"></span></a>
+			<ul id="menu-academico-sub" >
+			  <li id="menu-academico-avaliacoes" ><a href="plan.html">计划</a></li>
+			  <li id="menu-academico-boletim" ><a href="employee.html">部门操作</a></li>
+		   </ul>
+	   </li>
+
+	</ul>
+  </div>
+</div>
+	<div class="clearfix"> </div>
+</div>
+<!--slide bar menu end here-->
+<script>
+var toggle = true;
+            
+$(".sidebar-icon").click(function() {                
+  if (toggle)
+  {
+    $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+    $("#menu span").css({"position":"absolute"});
+  }
+  else
+  {
+    $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+    setTimeout(function() {
+      $("#menu span").css({"position":"relative"});
+    }, 400);
+  }               
+                toggle = !toggle;
+            });
+</script>
+<!--scrolling js-->
+		<script src="js/jquery.nicescroll.js"></script>
+		<script src="js/scripts.js"></script>
+		<!--//scrolling js-->
+<script src="js/bootstrap.js"> </script>
+<!-- mother grid end here-->
+</body>
+</html>
